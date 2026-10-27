@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 
-export default function LoginPage({ onLogin }) {
+export default function LoginPage({ onLogin, onBack }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -58,6 +58,28 @@ export default function LoginPage({ onLogin }) {
       <div style={styles.orb3} />
 
       <div style={styles.container}>
+        {/* Back to Website Button */}
+        {onBack && (
+          <button
+            id="back-to-home-btn"
+            onClick={onBack}
+            style={styles.backBtn}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.12)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
+              e.currentTarget.style.transform = 'translateX(-4px)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'rgba(255,255,255,0.06)';
+              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+              e.currentTarget.style.transform = 'translateX(0)';
+            }}
+          >
+            <span style={{ fontSize: '1.1rem', display: 'flex', alignItems: 'center' }}>←</span>
+            <span>Back to Website</span>
+          </button>
+        )}
+
         {/* Logo */}
         <div style={styles.logoRow}>
           <div style={styles.logoBars}>
@@ -282,4 +304,18 @@ const styles = {
   demoPass: { color: 'rgba(255,255,255,0.3)', fontSize: '0.78rem' },
   demoCode: { background: 'rgba(255,255,255,0.08)', padding: '0.1rem 0.4rem', borderRadius: 4, color: '#C99E10' },
   footer: { color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem', textAlign: 'center' },
+  backBtn: {
+    position: 'absolute', top: '1.5rem', left: '1.5rem',
+    display: 'flex', alignItems: 'center', gap: '0.5rem',
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    color: 'rgba(255,255,255,0.7)',
+    borderRadius: 12, padding: '0.6rem 1.2rem',
+    cursor: 'pointer', fontFamily: "'Inter', sans-serif",
+    fontSize: '0.85rem', fontWeight: 500,
+    transition: 'all 0.25s ease',
+    backdropFilter: 'blur(10px)',
+    WebkitBackdropFilter: 'blur(10px)',
+    zIndex: 10,
+  },
 };
